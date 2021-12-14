@@ -15,7 +15,87 @@ function TVShowListPageTemplate({ shows, name, action }) {
   const classes = useStyles();
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
+  const [providerFilter, setProviderFilter] = useState("0");
+  const [sortFilter, setSortFilter] = useState("0");
   const genreId = Number(genreFilter);
+  const providerId = String(providerFilter);
+  const sortBy = String(sortFilter);
+
+  console.log(sortBy);
+  console.log(providerFilter);
+
+    if(sortBy === "Nothing") {
+      // Sort Shows Here
+
+      for(let i = 0; i < shows.length; i++) {
+        let min = i;
+        for(let j = i + 1; j < shows.length; j++) {
+          if(shows[min].id < shows[j].id) {
+            min = j;
+          }
+        }
+        if(min !== i) {
+          let tmp = shows[i];
+          shows[i] = shows[min];
+          shows[min] = tmp;
+        }
+      }
+    }
+    else if(sortBy === "Top Rated") {
+      // Sort Shows Here
+
+      for(let i = 0; i < shows.length; i++) {
+        let min = i;
+        for(let j = i + 1; j < shows.length; j++) {
+          if(shows[min].vote_average < shows[j].vote_average) {
+            min = j;
+          }
+        }
+        if(min !== i) {
+          let tmp = shows[i];
+          shows[i] = shows[min];
+          shows[min] = tmp;
+        }
+      }
+    }
+    else if(sortBy === "Least Rated") {
+      // Sort Shows Here
+
+      for(let i = 0; i < shows.length; i++) {
+        let min = i;
+        for(let j = i + 1; j < shows.length; j++) {
+          if(shows[min].vote_average > shows[j].vote_average) {
+            min = j;
+          }
+        }
+        if(min !== i) {
+          let tmp = shows[i];
+          shows[i] = shows[min];
+          shows[min] = tmp;
+        }
+      }
+    }
+    else if(sortBy === "Popularity") {
+      // Sort Shows Here
+
+      for(let i = 0; i < shows.length; i++) {
+        let min = i;
+        for(let j = i + 1; j < shows.length; j++) {
+          if(shows[min].popularity < shows[j].popularity) {
+            min = j;
+          }
+        }
+        if(min !== i) {
+          let tmp = shows[i];
+          shows[i] = shows[min];
+          shows[min] = tmp;
+        }
+      }
+    }
+
+  //console.log
+
+  console.log(shows);
 
   let displayedTVShows = shows
     .filter((m) => {
@@ -23,11 +103,19 @@ function TVShowListPageTemplate({ shows, name, action }) {
     })
     .filter((m) => {
       return genreId > 0 ? m.genre_ids.includes(genreId) : true;
+    })
+    .filter((m) => {
+      if(providerId !== "0") {
+        return m.original_language.includes(providerId);
+      }
+      else return m;
     });
 
   const handleChange = (type, value) => {
     if (type === "name") setNameFilter(value);
-    else setGenreFilter(value);
+    else if (type === "genre") setGenreFilter(value);
+    else if (type === "sort") setSortFilter(value);
+    else setProviderFilter(value);
   };
 
   return (
@@ -41,6 +129,8 @@ function TVShowListPageTemplate({ shows, name, action }) {
             onUserInput={handleChange}
             titleFilter={nameFilter}
             genreFilter={genreFilter}
+            providerFilter={providerFilter}
+            sortFilter={sortFilter}
           />
         </Grid>
         <TVShowList action={action} shows={displayedTVShows}></TVShowList>
