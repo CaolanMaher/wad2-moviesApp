@@ -29,7 +29,7 @@ const FavoriteTVShowsPage = () => {
 
   return (
     <PageTemplate
-      title="Favourite TV Shows"
+      name="Favourite TV Shows"
       shows={shows}
       action={(show) => {
         return (
