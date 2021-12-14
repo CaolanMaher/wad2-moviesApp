@@ -15,14 +15,14 @@ function TVShowListPageTemplate({ shows, name, action }) {
   const classes = useStyles();
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
-  const [providerFilter, setProviderFilter] = useState("0");
+  const [languageFilter, setLanguageFilter] = useState("0");
   const [sortFilter, setSortFilter] = useState("0");
   const genreId = Number(genreFilter);
-  const providerId = String(providerFilter);
+  const languageId = String(languageFilter);
   const sortBy = String(sortFilter);
 
   console.log(sortBy);
-  console.log(providerFilter);
+  console.log(languageFilter);
 
     if(sortBy === "Nothing") {
       // Sort Shows Here
@@ -105,8 +105,8 @@ function TVShowListPageTemplate({ shows, name, action }) {
       return genreId > 0 ? m.genre_ids.includes(genreId) : true;
     })
     .filter((m) => {
-      if(providerId !== "0") {
-        return m.original_language.includes(providerId);
+      if(languageId !== "0") {
+        return m.original_language.includes(languageId);
       }
       else return m;
     });
@@ -115,7 +115,7 @@ function TVShowListPageTemplate({ shows, name, action }) {
     if (type === "name") setNameFilter(value);
     else if (type === "genre") setGenreFilter(value);
     else if (type === "sort") setSortFilter(value);
-    else setProviderFilter(value);
+    else setLanguageFilter(value);
   };
 
   return (
@@ -129,7 +129,7 @@ function TVShowListPageTemplate({ shows, name, action }) {
             onUserInput={handleChange}
             titleFilter={nameFilter}
             genreFilter={genreFilter}
-            providerFilter={providerFilter}
+            languageFilter={languageFilter}
             sortFilter={sortFilter}
           />
         </Grid>

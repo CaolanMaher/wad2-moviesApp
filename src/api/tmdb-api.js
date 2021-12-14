@@ -181,7 +181,7 @@ export const getMovies = () => {
    });
   };
 
-  export const getTVShowProviders = async () => {
+  export const getTVShowLanguages = async () => {
     return fetch(
       "https://api.themoviedb.org/3/configuration/languages?api_key=" +
         process.env.REACT_APP_TMDB_KEY

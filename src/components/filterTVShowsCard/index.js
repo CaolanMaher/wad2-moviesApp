@@ -12,7 +12,7 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 //import img from '../../images/pexels-dziana-hasanbekava-5480827.jpg'
 import { getTVShowGenres } from "../../api/tmdb-api";
-import { getTVShowProviders } from "../../api/tmdb-api";
+import { getTVShowLanguages } from "../../api/tmdb-api";
 import { useQuery } from "react-query";
 import Spinner from '../spinner'
 //import { getTopRatedTVShow } from "../../api/tmdb-api";
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 export default function FilterMoviesCard(props) {
   const classes = useStyles();
   const { data, error, isLoading, isError } = useQuery("TVShowgenres", getTVShowGenres);
-  const { data: provider, error: providersError, isLoading: providersIsLoading, isError: providersIsError } = useQuery("showProviders", getTVShowProviders);
+  const { data: languages, error: languagesError, isLoading: languagesIsLoading, isError: languagesIsError } = useQuery("showLanguages", getTVShowLanguages);
   //const { data: rated, error: ratedError, isLoading: ratedIsLoading, isError: ratedIsError } = useQuery("showProviders", getTopRatedTVShow);
   //const { data: latest, error: latestError, isLoading: latestIsLoading, isError: latestIsError } = useQuery("showProviders", getLatestTVShows);
 
@@ -49,17 +49,17 @@ export default function FilterMoviesCard(props) {
   const genres = data.genres;
   genres.unshift({ id: "0", name: "All" });
 
-  // PROVIDERS
-  if (providersIsLoading) {
+  // languages
+  if (languagesIsLoading) {
     return <Spinner />;
   }
 
-  if (providersIsError) {
-    return <h1>{providersError.message}</h1>;
+  if (languagesIsError) {
+    return <h1>{languagesError.message}</h1>;
   }
-  const providers = provider;
-  if(providers[0].iso_639_1 !== "0") {
-    providers.unshift({ iso_639_1: "0", english_name: "All" });
+  const languagesList = languages;
+  if(languagesList[0].iso_639_1 !== "0") {
+    languagesList.unshift({ iso_639_1: "0", english_name: "All" });
   }
 
   // LATEST
@@ -90,7 +90,7 @@ export default function FilterMoviesCard(props) {
     handleChange(e, "genre", e.target.value);
   };
 
-  const handleProvidersChange = (e) => {
+  const handleLanguagesChange = (e) => {
     handleChange(e, "provider", e.target.value);
   };
 
@@ -132,17 +132,17 @@ export default function FilterMoviesCard(props) {
           </Select>
         </FormControl>
         <FormControl className={classes.formControl}>
-          <InputLabel id="providers-label">Providers</InputLabel>
+          <InputLabel id="providers-label">Languages</InputLabel>
             <Select
               labelId="providers-label"
               id="providers-select"
-              value={props.providersFilter}
-              onChange={handleProvidersChange}
+              value={props.languagesFilter}
+              onChange={handleLanguagesChange}
             >
-              {providers.map((provider) => {
+              {languagesList.map((language) => {
                 return (
-                  <MenuItem key={provider.iso_639_1} value={provider.iso_639_1}>
-                    {provider.english_name}
+                  <MenuItem key={language.iso_639_1} value={language.iso_639_1}>
+                    {language.english_name}
                   </MenuItem>
                 );
               })}
