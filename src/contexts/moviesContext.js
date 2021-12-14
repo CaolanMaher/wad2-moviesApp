@@ -7,14 +7,14 @@ const MoviesContextProvider = (props) => {
   const [myReviews, setMyReviews] = useState( [] )
   const [playlist, setPlaylist] = useState( [] )
   const [tvShowFavourites, setTVShowFavourites] = useState( [] )
-  const [tvShowReviews, setTVShowReviews] = useState( [] )
+  //const [tvShowReviews, setTVShowReviews] = useState( [] )
 
   const addToFavorites = (movie) => {
     setFavorites([...favorites,movie.id])
   };
 
   const addToTVShowFavourites = (show) => {
-    setTVShowFavourites([...favorites,show.id])
+    setTVShowFavourites([...tvShowFavourites,show.id])
   };
 
   // We will use this function in a later section
@@ -25,7 +25,7 @@ const MoviesContextProvider = (props) => {
   };
 
   const removeFromTVShowFavourites = (show) => {
-    setTVShowFavourites( favorites.filter(
+    setTVShowFavourites( tvShowFavourites.filter(
       (mId) => mId !== show.id
     ) )
   };
@@ -34,9 +34,9 @@ const MoviesContextProvider = (props) => {
       setMyReviews( {...myReviews, [movie.id]: review } )
   };
 
-  const addTVShowReview = (show, review) => {
-    setTVShowReviews( {...myReviews, [show.id]: review } )
-};
+  //const addTVShowReview = (show, review) => {
+  //  setTVShowReviews( {...myReviews, [show.id]: review } )
+  //};
 
   const addToPlaylist = (movie) => {
     setPlaylist([...playlist,movie.id])
@@ -57,13 +57,13 @@ const MoviesContextProvider = (props) => {
         removeFromFavorites,
         removeFromTVShowFavourites,
         addReview,
-        addTVShowReview,
+        //addTVShowReview,
         playlist,
         addToPlaylist,
         removeFromPlaylist,
-        setTVShowReviews,
+        //setTVShowReviews,
         addToTVShowFavourites,
-        tvShowReviews,
+        //tvShowReviews,
       }}
     >
       {props.children}

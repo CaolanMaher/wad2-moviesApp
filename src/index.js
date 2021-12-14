@@ -16,7 +16,8 @@ import PlaylistMoviesPage from "./pages/playlistMoviesPage"; // NEW
 import TopRatedMoviePage from "./pages/topRatedMoviesPage"; // NEW FOR ASSIGNMENT
 import TVShowsPage from "./pages/tvShowsPage"; // NEW FOR ASSIGNMENT
 import TVShowReviewPage from "./pages/tvShowReviewPage"; // NEW FOR ASSIGNMENT
-import TVShowDetailsPage from "./pages/tvShowDetailsPage";
+import TVShowDetailsPage from "./pages/tvShowDetailsPage"; // NEW FOR ASSIGNMENT
+import FavoriteTVShowsPage from "./pages/favoriteTVShowPage"; // NEW FOR ASSIGNMENT
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -43,6 +44,7 @@ const App = () => {
             <Route path="/reviews/:id" component={MovieReviewPage} />
             <Route path="/tvshowreviews/:id" component={TVShowReviewPage} />
             <Route exact path="/movies/favorites" component={FavoriteMoviesPage} />
+            <Route exact path="/tvshows/favorites" component={FavoriteTVShowsPage} />
             <Route exact path="/movies/playlist" component={PlaylistMoviesPage} />
             <Route path="/movies/:id" component={MoviePage} />
             <Route path="/tvshows/:id" component={TVShowDetailsPage} />
