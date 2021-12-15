@@ -6,7 +6,7 @@ const AuthContextProvider = (props) => {
   const [user, setUser] = useState({ username: null, password: null });
 
   const authenticate = (username, password) => {
-    setUser({ username, password });
+        setUser({ username, password });
   };
 
   const isAuthenticated = user.username === null ? false : true
