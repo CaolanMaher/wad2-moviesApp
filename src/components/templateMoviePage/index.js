@@ -44,8 +44,14 @@ const TemplateMoviePage = ({ movie, children }) => {
     <>
       <MovieHeader movie={movie} />
 
-      <Grid container spacing={5} style={{ padding: "15px" }}>
-      {!isMobile ? (
+      {isMobile ? (
+        <Grid container spacing={5} style={{ padding: "15px" }}>
+        <Grid item xs={12}>
+        {children}
+        </Grid>
+        </Grid>
+      ) : (
+        <Grid container spacing={5} style={{ padding: "15px" }}>
         <Grid item xs={3}>
           <div className={classes.root}>
             <GridList cellHeight={500} className={classes.gridList} cols={1}>
@@ -60,13 +66,11 @@ const TemplateMoviePage = ({ movie, children }) => {
             </GridList>
           </div>
         </Grid>
-      ) : (
-        <Grid item xs={2}></Grid>
-      )}
         <Grid item xs={9}>
-          {children}
-        </Grid>
+        {children}
       </Grid>
+      </Grid>
+      )}
     </>
   );
 };
